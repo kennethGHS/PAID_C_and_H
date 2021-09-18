@@ -54,7 +54,6 @@ function  [M,n_message,m_message]= p1(filename,message,key,T)
     endfor
     FM = cell2mat(FM);
     M = FM;
-    imshow(M)
 endfunction
 
 function [len,W] = str_to_array(str)
@@ -118,6 +117,38 @@ function [M] = decode_array(WB,key,T,n_message,m_message)
     endfor
 end
 
-[M,n,m] = p1("elena.jpg","HellomynameiskennethAndImawetwgstgwe5gtqwrdqwe5weatdweAsuperniceguylikefrimprettygood",1,30);
-F = decode_array(M,1,30,n,m);
-F = F
+function R = calculate_error(M,W)
+  [n1,n2] = size(W);
+  count = 0;
+  for i = 1:n1
+    for j = 1:n2
+      v1 = hex2dec (M(i,j))
+      v2 = hex2dec (W(i,j))
+      count = (not(xor(v1,v2))) + count
+    endfor
+  endfor
+  R = count*100/(n1*n2)  
+endfunction
+
+function MSE = calculate_error_image(M,W)
+    [n,m] = size(M)
+    M = double(M);
+    W = double(W);
+    sum = 0.0
+    for i = 1:n
+      for j = 1:m
+        sum = sum + abs((M(i,j)-W(i,j)))^2;
+        if (M(i,j)-W(i,j)) != 0
+          l = abs((M(i,j)-W(i,j)))^2
+        endif
+      endfor
+    endfor
+    MSE = sum/(n*m)
+endfunction
+[k,message_bin] = str_to_array("HellomynameiskennethAndImawetwgstgwe5gtqwrdqwe5weatdweAsuperniceguylikefrimprettygood")
+[M,n,m] = p1("elena.jpg","HellomynameiskennethAndImawetwgstgwe5gtqwrdqwe5weatdweAsuperniceguylikefrimprettygood",1,100);
+F = decode_array(M,1,100,n,m);
+calculate_error(message_bin,F)
+I = imread("elena.jpg")
+MSE = calculate_error_image(I,M)
+97.5
