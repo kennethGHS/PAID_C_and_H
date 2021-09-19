@@ -30,19 +30,19 @@ def rotacion(I, ang):
     """
     imageM = np.array(I, dtype=np.uint8)
     max_rows, max_cols = I.size
-    imageRot = np.zeros((max_rows, max_cols), dtype=np.uint8)
+    marco = 250
+    imageRot = np.zeros((max_rows + marco, max_cols + marco), dtype=np.uint8)
     centerX = max_rows // 2  # Get the x component center about which it will rotate (use the floor divition operator)
     centerY = max_cols // 2  # Get the y component center about which it will rotate (use the floor divition operator)
 
     for x in range(max_rows - 1):
         for y in range(max_cols - 1):
 
-            x_new = getNewPos('x', ang, x, y, centerX, centerY)
-            y_new = getNewPos('y', ang, x, y, centerX, centerY)
+            x_new = getNewPos('x', ang, x, y, centerX, centerY) + marco // 2
+            y_new = getNewPos('y', ang, x, y, centerX, centerY) + marco // 2
 
-            if x_new >= 0 and y_new >= 0:  ##the transformation is not out of scope
-                if x_new < max_rows and y_new < max_cols:  # Checks that the image dont gets out of the matrix size
-                    imageRot[x_new, y_new] = np.uint8(imageM[x, y])  # Sets the components
+
+            imageRot[x_new, y_new] = np.uint8(imageM[x, y])  # Sets the components
     Y = Image.fromarray(imageRot, 'L')
     return Y
 
