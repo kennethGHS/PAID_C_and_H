@@ -44,38 +44,41 @@ function R = calculate_error(M,W)
   R = count*100/(n1*n2)  ;
 endfunction
 
+
 function [M] = decode_array(WB,key,T,n_message,m_message)
     num_matrices = floor(n_message * m_message/4);
     [WBN,WBM] = size(WB);
     fours = 4*ones(WBM/4,1);
     already_coded = [];
     C = mat2cell(WB,fours ,fours);
-    M = build_binary(m_message);
+    M = build_binary(n_message);
     randn("seed",key)
     i_max = n_message;
     j_max = m_message;
     [m_new,n_new] = size(C);
     finalized_coding = 0;
     quadrant_j = 1;
+    coords = generate_random_coordinates(n_message,m_message);
     for quadrant_i = 1:m_new
         while quadrant_j ~= (n_new + 1)
-            i=int8 (abs(randn(1)*i_max));
-            j=int8 (abs(randn(1)*j_max));
-            temp = [i,j];
-            if finalized_coding ~=1
-                if ismember(temp,already_coded,'rows') || i ==0 || j ==0 || i >i_max || j > j_max
-                    if length(already_coded) == (i_max*j_max)
-                        finalized_coding = 1;
-                    endif
-                    continue;
-                endif
-                already_coded = [already_coded ; temp];
+           if finalized_coding ~=1
+            [i_max,j_max] = size(coords);
+            if i_max == 0 || j_max == 0
+               finalized_coding = 1;
+               continue;
+            endif
+            index = uint8(mod(abs(randn(1)*i_max),i_max));
+            if index == 0
+              continue
+            endif
+            i = coords(index,:);
+            coords(index,:) = [];
                 B = cell2mat (C(quadrant_i,quadrant_j));
                 [U,S,V] = svd(B);
                 if (S(6) - S(11)) > T/2
-                    M(i,j) = dec2bin(1);
+                    M(i(1),i(2)) = dec2bin(1);
                 else
-                    M(i,j) = dec2bin(0);
+                    M(i(1),i(2)) = dec2bin(0);
                 end
                 quadrant_j = quadrant_j + 1;
             else
@@ -87,7 +90,7 @@ function [M] = decode_array(WB,key,T,n_message,m_message)
 end
 
 function MSE = calculate_error_image(M,W)
-    [n,m] = size(M)
+    [n,m] = size(M);
     M = double(M);
     W = double(W);
     sum = 0.0

@@ -13,25 +13,27 @@ function  [M,n_message,m_message]= p1(filename,message,key,T)
     [n_message,m_message] =size(W); 
     i_max = max_i;
     j_max = 8;
+    coords = generate_random_coordinates(max_i,j_max);
     randn("seed",key)
     quadrant_j = 1;
     already_coded = [];
     FM = C;
-    finalized_coding = 0
+    finalized_coding = 0;
     for quadrant_i = 1:m_new
         while quadrant_j ~= (n_new + 1)
           if finalized_coding ~=1
-            i=int8 (abs(randn(1)*i_max));
-            j=int8 (abs(randn(1)*j_max));
-            temp = [i,j];
-            if ismember(temp,already_coded,'rows') || i ==0 || j ==0 || i >i_max || j > j_max
-                if length(already_coded) == (i_max*j_max)
-                   finalized_coding = 1
-                endif
-                continue;
+            [i_max,j_max] = size(coords);
+            if i_max == 0 || j_max == 0
+               finalized_coding = 1;
+               continue;
             endif
-            already_coded = [already_coded ; temp];
-            value = bin2dec(W(i,j));
+            index = uint8(mod(abs(randn(1)*i_max),i_max));
+            if index == 0
+              continue
+            endif
+            i = coords(index,:);
+            coords(index,:) = [];
+            value = bin2dec(W(i(1),i(2)));
             B = cell2mat (C(quadrant_i,quadrant_j));
             [U,S,V] = svd(B);
             if (value == 1)
@@ -62,7 +64,7 @@ endfunction
 function [len,W] = str_to_array(str)
     W = []
     l = length(str);
-    len = l
+    len = l;
     for i = 1:l
         num = abs(str(i) - '0');
         W = [W;dec2bin(num,8)];
@@ -84,32 +86,34 @@ function [M] = decode_array(WB,key,T,n_message,m_message)
     fours = 4*ones(WBM/4,1);
     already_coded = [];
     C = mat2cell(WB,fours ,fours);
-    M = build_binary(m_message);
+    M = build_binary(n_message);
     randn("seed",key)
     i_max = n_message;
     j_max = m_message;
     [m_new,n_new] = size(C);
     finalized_coding = 0;
     quadrant_j = 1;
+    coords = generate_random_coordinates(n_message,m_message);
     for quadrant_i = 1:m_new
         while quadrant_j ~= (n_new + 1)
-            i=int8 (abs(randn(1)*i_max));
-            j=int8 (abs(randn(1)*j_max));
-            temp = [i,j];
-            if finalized_coding ~=1
-                if ismember(temp,already_coded,'rows') || i ==0 || j ==0 || i >i_max || j > j_max
-                    if length(already_coded) == (i_max*j_max)
-                        finalized_coding = 1;
-                    endif
-                    continue;
-                endif
-                already_coded = [already_coded ; temp];
+           if finalized_coding ~=1
+            [i_max,j_max] = size(coords);
+            if i_max == 0 || j_max == 0
+               finalized_coding = 1;
+               continue;
+            endif
+            index = uint8(mod(abs(randn(1)*i_max),i_max));
+            if index == 0
+              continue
+            endif
+            i = coords(index,:);
+            coords(index,:) = [];
                 B = cell2mat (C(quadrant_i,quadrant_j));
                 [U,S,V] = svd(B);
                 if (S(6) - S(11)) > T/2
-                    M(i,j) = dec2bin(1);
+                    M(i(1),i(2)) = dec2bin(1);
                 else
-                    M(i,j) = dec2bin(0);
+                    M(i(1),i(2)) = dec2bin(0);
                 end
                 quadrant_j = quadrant_j + 1;
             else
@@ -134,7 +138,7 @@ function R = calculate_error(M,W)
 endfunction
 
 function MSE = calculate_error_image(M,W)
-    [n,m] = size(M)
+    [n,m] = size(M);
     M = double(M);
     W = double(W);
     sum = 0.0
@@ -162,7 +166,7 @@ endfunction
 function [T,ErrorMessage,ErrorPicture] = generateDiagramsError()
   T = [5,7.5,10,12.5,15,17.5,20,22.5,25,27.5,30,32.5,35,37.5,40];
   n2 = length(T);
-  message = generate_random_str(10,1);
+  message = generate_random_str(30,1);
   [k,message_bin] = str_to_array(message);
   ErrorMessage = [];
   ErrorPicture = [];
@@ -181,5 +185,13 @@ function [T,ErrorMessage,ErrorPicture] = generateDiagramsError()
   legend("Error of decoding", "MSE of pictures");
   title("Errors of decoding and encoding")
 endfunction
-  
+
+function [coord] = generate_random_coordinates(n,m)
+  coord = []
+   for i = 1:n
+      for j = 1:m
+          coord = [coord ;[i j]];
+      endfor
+   endfor
+endfunction
 generateDiagramsError()

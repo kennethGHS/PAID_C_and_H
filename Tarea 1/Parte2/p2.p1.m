@@ -13,6 +13,7 @@ function  [M,n_message,m_message]= p1(filename,message,key,T)
     [n_message,m_message] =size(W); 
     i_max = max_i;
     j_max = 8;
+    coords = generate_random_coordinates(max_i,j_max);
     randn("seed",key)
     quadrant_j = 1;
     already_coded = [];
@@ -21,17 +22,18 @@ function  [M,n_message,m_message]= p1(filename,message,key,T)
     for quadrant_i = 1:m_new
         while quadrant_j ~= (n_new + 1)
           if finalized_coding ~=1
-            i=int8 (abs(randn(1)*i_max));
-            j=int8 (abs(randn(1)*j_max));
-            temp = [i,j];
-            if ismember(temp,already_coded,'rows') || i ==0 || j ==0 || i >i_max || j > j_max
-                if length(already_coded) == (i_max*j_max)
-                   finalized_coding = 1
-                endif
-                continue;
+            [i_max,j_max] = size(coords);
+            if i_max == 0 || j_max == 0
+               finalized_coding = 1;
+               continue;
             endif
-            already_coded = [already_coded ; temp];
-            value = bin2dec(W(i,j));
+            index = uint8(mod(abs(randn(1)*i_max),i_max));
+            if index == 0
+              continue
+            endif
+            i = coords(index,:);
+            coords(index,:) = [];
+            value = bin2dec(W(i(1),i(2)));
             B = cell2mat (C(quadrant_i,quadrant_j));
             [U,S,V] = svd(B);
             if (value == 1)
@@ -80,8 +82,8 @@ function [random_str] = generate_random_str(sLength,key)
   endfor
 endfunction
 
-message = generate_random_str(10,1);
-[M,n_message,m_message] = p1("elena.jpg",message,1,100);
+message = generate_random_str(30,1);
+[M,n_message,m_message] = p1("elena.jpg",message,1,30);
 image = imread("elena.jpg");
 subplot(1,2,1), imshow(image);
 subplot(1,2,2), imshow(uint8(M));
