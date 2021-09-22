@@ -6,6 +6,16 @@ import matplotlib.pyplot as plt
 
 def getNewPos(comp, angle, pix_x, pix_y, rot_x,
               rot_y):  # Makes all the translation of the old components to the rotated components
+    """
+    Calcula la nueva posicion del pixel dependiendo de si es rotacion en x o en y
+    :param comp: componente en que se quiere rotar
+    :param angle: angulo de rotación
+    :param pix_x: pixel en x
+    :param pix_y: pixel en y
+    :param rot_x: la rotación que se quiere aplicar en x
+    :param rot_y: la rotación que se quiere aplicar en y
+    :return: nueva posicion en la componente indicada
+    """
     if (comp == 'x'):
         a0 = np.cos(angle)
         a1 = np.sin(angle)
@@ -47,7 +57,7 @@ def rotacion(I, ang):
     return Y
 
 I = Image.open('barbara.jpg', 'r').convert('L')
-ang = np.pi / 1.8
+ang = np.pi / 4
 Y = rotacion(I, ang)
 Y.save("rotation.jpg")
 
@@ -64,6 +74,7 @@ canvas.add_subplot(1, 3, 1)
 
 plt.imshow(I, cmap='gray')
 plt.title("Original")
+I.save('Original_rotacion.jpg')
 
 canvas.add_subplot(1, 3, 2)
 plt.imshow(Y_media, cmap='gray')

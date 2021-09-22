@@ -3,6 +3,15 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 def getPixel(M, r_m, c_m, x, y):
+    """
+        Est función verifica que se pueda acceder a un pixel de la imagen y que no se salga
+        :param M: Matrix
+        :param r_m: columnas
+        :param c_m:  filas
+        :param x: posicion en x
+        :param y:  posicion en y
+        :return: pixel que se quiere acceder
+        """
     if (0 <= x and x < r_m) and (0 <= y and y < c_m):
         return M[x, y]
     else:
