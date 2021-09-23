@@ -2,74 +2,15 @@ clc;
 clear;
 close all;
 
-function  [M,n_message,m_message]= p1(filename,message,key,T)
-  %Method that encodes a message into a picture
-  %Arguments
-  %Filename: name of the image
-  %message: Message to be encoded
-  %Key: key for the random generator
-  %Threshold: Used for the codification of the bitand
-  %Returns: Picture encoded and the size of the message in binary 
-   [max_i,W] = str_to_array(message);
-   A = imread(filename);
-   [m,n] = size(A);
-    num_matrices = floor((m)/4);
-    fours = 4*ones(num_matrices,1);
-    C = mat2cell(A,fours ,fours);
-    [m_new,n_new] = size(C); 
-    [n_message,m_message] =size(W); 
-    i_max = max_i;
-    j_max = 8;
-    %generates random coordinates array
-    coords = generate_random_coordinates(max_i,j_max);
-    randn("seed",key)
-    quadrant_j = 1;
-    already_coded = [];
-    FM = C;
-    finalized_coding = 0;
-    %Moves trought the binary message
-    for quadrant_i = 1:m_new
-        while quadrant_j ~= (n_new + 1)
-          if finalized_coding ~=1
-            [i_max,j_max] = size(coords);
-            if i_max == 0 || j_max == 0
-               finalized_coding = 1;
-               continue;
-            endif
-            index = uint8(mod(abs(randn(1)*i_max),i_max));
-            if index == 0
-              continue
-            endif
-            i = coords(index,:);
-            coords(index,:) = [];
-            value = bin2dec(W(i(1),i(2)));
-            B = cell2mat (C(quadrant_i,quadrant_j));
-            [U,S,V] = svd(B);
-            %Encodes the bit
-            if (value == 1)
-                if (S(11) > (S(6) - S(11)))
-                    S(16) =  (S(6) - S(11));
-                else
-                    S(16) = 0;
-                end
-                S(6) = S(6) + T;
-            endif
-            if S(11) < S(16)
-                S(11) = S(16);
-            endif
-            %Reconstructs fro the USV
-            WB = U*S*V';
-            FM(quadrant_i,quadrant_j) = WB;
-            quadrant_j = quadrant_j + 1;
-          else
-            FM(quadrant_i,quadrant_j) = C(quadrant_i,quadrant_j);
-            quadrant_j = quadrant_j + 1;
-          end
-        endwhile
-        quadrant_j = 1;
-    endfor
-    FM = cell2mat(FM);
-    M = FM;
+function [random_str] = generate_random_str(sLength,key)
+  %Generates a random message to be encoded into a picture
+  s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  numRands = length(s);
+  randn("seed",key)
+  random_str = "";
+  for i = 1:sLength
+    random_str= strcat  (random_str,s(floor(mod(abs(randn(1,sLength)*numRands),numRands )) + 1));
+  endfor
 endfunction
 
 function [len,W] = str_to_array(str)
@@ -90,7 +31,24 @@ function [M]= build_binary(m_messages)
    for i = 1:m_messages
      M = [M;dec2bin(0,8)];
    endfor
+  
 end
+
+
+function R = calculate_error(M,W)
+  %Calculates the difference between the M and W messages in binary
+  [n1,n2] = size(W);
+  count = 0;
+  for i = 1:n1
+    for j = 1:n2
+      v1 = hex2dec (M(i,j));
+      v2 = hex2dec (W(i,j));
+      count = (not(xor(v1,v2))) + count;
+    endfor
+  endfor
+  R = 100 - count*100/(n1*n2)  ;
+endfunction
+
 
 function [M] = decode_array(WB,key,T,n_message,m_message)
   %Decodes the message from a picture
@@ -145,18 +103,14 @@ function [M] = decode_array(WB,key,T,n_message,m_message)
     endfor
 end
 
-function R = calculate_error(M,W)
-  %Calculates the difference between the M and W messages in binary
-  [n1,n2] = size(W);
-  count = 0;
-  for i = 1:n1
-    for j = 1:n2
-      v1 = hex2dec (M(i,j));
-      v2 = hex2dec (W(i,j));
-      count = (not(xor(v1,v2))) + count;
-    endfor
-  endfor
-  R = 100 - count*100/(n1*n2)  ;
+function [coord] = generate_random_coordinates(n,m)
+  %Generates a array of coordinates
+  coord = [];
+   for i = 1:n
+      for j = 1:m
+          coord = [coord ;[i j]];
+      endfor
+   endfor
 endfunction
 
 function MSE = calculate_error_image(M,W)
@@ -176,48 +130,13 @@ function MSE = calculate_error_image(M,W)
     MSE = sum/(n*m);
 endfunction
 
-function [random_str] = generate_random_str(sLength,key)
-  %Generates a random message to be encoded into a picture
-  s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  numRands = length(s);
-  randn("seed",key)
-  random_str = "";
-  for i = 1:sLength
-    random_str= strcat  (random_str,s(floor(mod(abs(randn(1,sLength)*numRands),numRands )) + 1));
-  endfor
-endfunction
 
-function [T,ErrorMessage,ErrorPicture] = generateDiagramsError()
-  %Creates graphics for the error and MSE of pictures
-  T = [5,7.5,10,12.5,15,17.5,20,22.5,25,27.5,30,32.5,35,37.5,40];
-  n2 = length(T);
-  message = generate_random_str(30,1);
-  [k,message_bin] = str_to_array(message);
-  ErrorMessage = [];
-  ErrorPicture = [];
-  for i = 1:n2
-    [M,n2,m] = p1("elena.jpg",message,1,T(i));
-     F = decode_array(M,1,T(i),n2,m);
-     c=calculate_error(message_bin,F);
-     I = imread("elena.jpg");
-     MSE = calculate_error_image(I,M);
-     ErrorMessage= [ErrorMessage c];
-     ErrorPicture = [ErrorPicture MSE];
-  endfor
-  plot(T,ErrorMessage,"*",T,ErrorPicture,"-");
-  xlabel("Threshold");
-  ylabel("Errors");
-  legend("Error of decoding", "MSE of pictures");
-  title("Errors of decoding and encoding")
-endfunction
+message = generate_random_str(90,3);
+[lenght_binary, binary_message] = str_to_array(message);
+[n,m] = size(binary_message);
+load ("barbara_encriptada.mat");
+load ("barbara_original.mat");
+F = decode_array(A_Stego*255,3,0.05*255,n,m);
+Image_error = calculate_error_image(A_Stego*255,Ar*255)
+Error_Message = 100 - calculate_error(binary_message,F)
 
-function [coord] = generate_random_coordinates(n,m)
-  %Generates a array of coordinates
-  coord = [];
-   for i = 1:n
-      for j = 1:m
-          coord = [coord ;[i j]];
-      endfor
-   endfor
-endfunction
-generateDiagramsError()
