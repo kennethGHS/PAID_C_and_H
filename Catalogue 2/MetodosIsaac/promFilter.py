@@ -2,18 +2,6 @@ import numpy as np
 import imageio as im
 import matplotlib.pyplot as plt
 
-
-
-
-def im2uint8(im):
-    info = np.iinfo(np.uint8) # Consiguie el tipo de dato de la imagen
-    # Multiplica por el valor maximo
-    temp = im*info.max
-    temp[temp>info.max] = info.max
-    temp[temp<info.min] = info.min
-    return temp.astype(np.uint8)
-
-
 def filter(side,B,A_t,m,n):
     if side == "E1":
         W = B[0, 0] + B[0, 1] + B[1, 0] + B[1, 1]
@@ -75,26 +63,37 @@ def promFilter(B):
 
     filter("C", B, A_t, m, n)
 
-    return im2uint8(A_t)
+    imgDT = np.iinfo(np.uint8)
+    imax = A_t * imgDT.max
+    imax[imax > imgDT.max] = imgDT.max
+    imax[imax < imgDT.min] = imgDT.min
+    return imax.astype(np.uint8)
 
 
 
-A = im.imread("filename.jpg") # lectura de imagen en escala a grises
 
-info = np.iinfo(A.dtype)
-A = A.astype(np.float64) / info.max
+I = im.imread("filename.jpg") # lectura de imagen en escala a grises
 
-B1 = im2uint8(A)
+info = np.iinfo(I.dtype)
+I = I.astype(np.float64) / info.max
+
+
+imgDT = np.iinfo(np.uint8)
+imax = I * imgDT.max
+imax[imax > imgDT.max] = imgDT.max
+imax[imax < imgDT.min] = imgDT.min
+A = imax.astype(np.uint8)
+
 
 
 plt.figure(1) # creacion de nueva figura para graficado
 plt.subplot(121) # posicionamiento de imagen
 plt.title("Imagen con ruido")
-plt.imshow(B1, cmap='gray', vmin = 0, vmax = 255, interpolation='none')
+plt.imshow(A, cmap='gray', vmin = 0, vmax = 255, interpolation='none')
 # muestra matriz como imagen
 
 # Filtro Promedio
-B = promFilter(A)
+B = promFilter(I)
 
 plt.subplot(122) # posicionamiento de la nueva imagen
 plt.title("Imagen Filtrada Promedio")
