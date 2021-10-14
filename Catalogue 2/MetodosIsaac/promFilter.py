@@ -3,9 +3,7 @@ import imageio as im
 import matplotlib.pyplot as plt
 
 
-def im2double(im):
-    info = np.iinfo(im.dtype)
-    return im.astype(np.float64) / info.max
+
 
 def im2uint8(im):
     info = np.iinfo(np.uint8) # Consiguie el tipo de dato de la imagen
@@ -81,17 +79,13 @@ def promFilter(B):
 
 
 
-A = im.imread("image.jpg") # lectura de imagen en escala a grises
+A = im.imread("filename.jpg") # lectura de imagen en escala a grises
 
-# Crear un ruido aditivo
-A = im2double(A) # Se normaliza la imagen
-A = A[:, :, 0] # Se utiliza uno de los canales de colores
-# la imagen no esta en escala de grises pero sus canales son iguales
-(m, n) = A.shape # se extraen las dimensiones de la imagen
-N = 0.05 * np.random.randn(m, n) # Se consigue una matrix aleatoria de floats
-B = A + N # La imagen con ruido, con valores double normalizados
+info = np.iinfo(A.dtype)
+A = A.astype(np.float64) / info.max
 
-B1 = im2uint8(B)
+B1 = im2uint8(A)
+
 
 plt.figure(1) # creacion de nueva figura para graficado
 plt.subplot(121) # posicionamiento de imagen
