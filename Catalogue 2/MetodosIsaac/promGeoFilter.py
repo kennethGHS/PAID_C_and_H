@@ -39,11 +39,11 @@ def filter(side,B,A_t,m,n):
     elif side == "C":
         for x in range(1, m - 1):
             for y in range(1, n - 1):
-                Wf1 = B[x - 1, y - 1] * B[x - 1, y] * B[x - 1, y + 1]  # Fila 1
-                Wf2 = B[x, y - 1] * B[x, y] * B[x, y + 1]  # Fila 2
-                Wf3 = B[x + 1, y - 1] * B[x + 1, y] * B[x + 1, y + 1]  # Fila 3
+                Wf1 = B[x - 1, y - 1] * B[x - 1, y] * B[x - 1, y + 1]
+                Wf2 = B[x, y - 1] * B[x, y] * B[x, y + 1]
+                Wf3 = B[x + 1, y - 1] * B[x + 1, y] * B[x + 1, y + 1]
                 A_t[x, y] = (1 / 9) * (Wf1 + Wf2 + Wf3)
-def promFilter(B):
+def promGeoFilter(B):
 
 
     (m, n) = B.shape
@@ -72,7 +72,7 @@ def promFilter(B):
 
 
 
-I = im.imread("filename.jpg") # lectura de imagen en escala a grises
+I = im.imread("filename.jpg")
 
 info = np.iinfo(I.dtype)
 I = I.astype(np.float64) / info.max
@@ -86,18 +86,18 @@ A = imax.astype(np.uint8)
 
 
 
-plt.figure(1) # creacion de nueva figura para graficado
-plt.subplot(121) # posicionamiento de imagen
+plt.figure(1)
+plt.subplot(121)
 plt.title("Imagen con ruido")
 plt.imshow(A, cmap='gray', vmin = 0, vmax = 255, interpolation='none')
-# muestra matriz como imagen
 
-# Filtro Promedio
-B = promFilter(I)
 
-plt.subplot(122) # posicionamiento de la nueva imagen
+
+B = promGeoFilter(I)
+
+plt.subplot(122)
 plt.title("Imagen Filtrada Promedio")
 plt.imshow(B, cmap='gray', vmin = 0, vmax = 255, interpolation='none')
-# muestra matriz como imagen
 
-plt.show() # despliega la grafica
+
+plt.show()
