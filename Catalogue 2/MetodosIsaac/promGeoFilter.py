@@ -44,7 +44,11 @@ def filter(side,B,A_t,m,n):
                 Wf3 = B[x + 1, y - 1] * B[x + 1, y] * B[x + 1, y + 1]
                 A_t[x, y] = (1 / 9) * (Wf1 + Wf2 + Wf3)
 def promGeoFilter(B):
-
+    """
+        Improve the quality of an image by delete some noice of an image with geometric mean filter
+        :param B: gets an black and white image with noice
+        :return: an image without noice
+        """
 
     (m, n) = B.shape
     A_t = np.zeros((m, n))
@@ -71,13 +75,13 @@ def promGeoFilter(B):
 
 
 
-
+#Open the image
 I = im.imread("filename.jpg")
 
 info = np.iinfo(I.dtype)
 I = I.astype(np.float64) / info.max
 
-
+#Pass the image to uint8
 imgDT = np.iinfo(np.uint8)
 imax = I * imgDT.max
 imax[imax > imgDT.max] = imgDT.max
@@ -85,7 +89,7 @@ imax[imax < imgDT.min] = imgDT.min
 A = imax.astype(np.uint8)
 
 
-
+#Plot the original image
 plt.figure(1)
 plt.subplot(121)
 plt.title("Imagen con ruido")
@@ -94,7 +98,7 @@ plt.imshow(A, cmap='gray', vmin = 0, vmax = 255, interpolation='none')
 
 
 B = promGeoFilter(I)
-
+#Plot the final image
 plt.subplot(122)
 plt.title("Imagen Filtrada Promedio")
 plt.imshow(B, cmap='gray', vmin = 0, vmax = 255, interpolation='none')

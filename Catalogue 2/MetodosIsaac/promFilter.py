@@ -45,7 +45,7 @@ def filter(side,B,A_t,m,n):
                 A_t[x, y] = (1 / 9) * (Wf1 + Wf2 + Wf3)
 def promFilter(B):
     """
-    Improve the quality of an image by delete some noice of an image
+    Improve the quality of an image by delete some noice of an image with mean filter
     :param B: gets an black and white image with noice
     :return: an image without noice
     """
