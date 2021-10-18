@@ -4,6 +4,11 @@ import numpy as np
 
 
 def butterWorthFilter(I):
+    """
+    Gauss with high pass filter applying fourier transform
+    :param I: image to filter
+    :return: final image
+    """
     #Get the size of the image
     M = I.shape[0]
     N = I.shape[1]
@@ -15,11 +20,11 @@ def butterWorthFilter(I):
     D = np.zeros([M, N])
     for u in range(M):
         for v in range(N):
-            # Calculo de distancias
+            #distance calculation
             D_temp = np.sqrt(u ** 2 + v ** 2)
             D[u,v] = 1/(1+(D0/(1+D_temp)**(2*1)))
     H = D
-    #Realizacion de la mascara
+    #Masc applied to image
     m_masc = H.shape[0]
     n_masc = H.shape[1]
 
@@ -37,10 +42,10 @@ def butterWorthFilter(I):
 
     I_f = np.fft.ifft2(G)
     plt.figure()
-    # Imagen original
+    # Original Image
     plt.subplot(1, 2, 1), plt.title("Imagen original")
     plt.imshow(I, cmap='gray')
-    # Imagen con fft2 inversa
+    # Output image
     plt.subplot(1, 2, 2), plt.title("Imagen transformada inversa")
     plt.imshow(np.uint8(np.abs(I_f)), cmap='gray')
     plt.show()
