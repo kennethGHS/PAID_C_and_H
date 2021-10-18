@@ -5,7 +5,7 @@ import numpy as np
 
 def butterWorthHighFilter(I):
     """
-    Gauss with high pass filter applying fourier transform
+    ButterWorth High filter applying fourier transform
     :param I: image to filter
     :return: final image
     """

@@ -15,17 +15,17 @@
     <SUITE FILE_PATH="coverage/MetodosIsaac$idealHighPassFilter.coverage" NAME="idealHighPassFilter Coverage Results" MODIFIED="1634153460962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MetodosIsaac$promGeoFilter.coverage" NAME="promGeoFilter Coverage Results" MODIFIED="1634240553540" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MetodosIsaac$idealHighFilter.coverage" NAME="idealHighFilter Coverage Results" MODIFIED="1634153636774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MetodosIsaac$idealRBFilter.coverage" NAME="idealRBFilter Coverage Results" MODIFIED="1634524435206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MetodosIsaac$butterworthFilter.coverage" NAME="butterworthFilter Coverage Results" MODIFIED="1634525068585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MetodosIsaac$butterWorthRBFilter.coverage" NAME="butterWorthRBFilter Coverage Results" MODIFIED="1634525434322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MetodosIsaac$idealRBFilter.coverage" NAME="idealRBFilter Coverage Results" MODIFIED="1634525724816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MetodosIsaac$butterWorthRBFilter.coverage" NAME="butterWorthRBFilter Coverage Results" MODIFIED="1634525651666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/idealRBFilter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="51" column="17" lean-forward="true" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+            <state relative-caret-position="289">
+              <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -46,10 +46,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/butterworthFilter.py">
+        <entry file="file://$PROJECT_DIR$/butterworthHighFilter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="53" selection-end-column="24" />
+            <state relative-caret-position="119">
+              <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="27" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -57,16 +57,21 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/butterWorthRBFilter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+            <state relative-caret-position="322">
+              <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/image_gauss.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -139,9 +144,10 @@
         <option value="$PROJECT_DIR$/promGeoFilter.py" />
         <option value="$PROJECT_DIR$/contrArmPromFilter.py" />
         <option value="$PROJECT_DIR$/gaussRBFilter.py" />
-        <option value="$PROJECT_DIR$/idealRBFilter.py" />
         <option value="$PROJECT_DIR$/butterworthFilter.py" />
+        <option value="$PROJECT_DIR$/butterworthHighFilter.py" />
         <option value="$PROJECT_DIR$/butterWorthRBFilter.py" />
+        <option value="$PROJECT_DIR$/idealRBFilter.py" />
       </list>
     </option>
   </component>
@@ -188,7 +194,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.butterWorthRBFilter">
+  <component name="RunManager" selected="Python.idealRBFilter">
     <configuration name="butterWorthRBFilter" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MetodosIsaac" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -224,7 +230,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/butterworthFilter.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Isaac Porras\Desktop\PAID_C_and_H\Catalogue 2\MetodosIsaac\butterworthHighFilter.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -301,10 +307,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.idealRBFilter" />
         <item itemvalue="Python.butterWorthRBFilter" />
         <item itemvalue="Python.butterworthFilter" />
         <item itemvalue="Python.gaussRBFilter" />
-        <item itemvalue="Python.idealRBFilter" />
         <item itemvalue="Python.contrArmPromFilter" />
       </list>
     </recent_temporary>
@@ -320,12 +326,12 @@
       <option name="presentableId" value="Default" />
       <updated>1634140721332</updated>
       <workItem from="1634140724753" duration="17354000" />
-      <workItem from="1634521076158" duration="4121000" />
+      <workItem from="1634521076158" duration="4499000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21475000" />
+    <option name="totallyTimeSpent" value="21853000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="762" y="0" width="781" height="864" extended-state="0" />
@@ -448,16 +454,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/idealRBFilter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="51" column="17" lean-forward="true" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/idealHighFilter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="748">
@@ -468,10 +464,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/butterworthFilter.py">
+    <entry file="file://$PROJECT_DIR$/image_gauss.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/butterworthHighFilter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="53" selection-end-column="24" />
+        <state relative-caret-position="119">
+          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="27" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -480,8 +479,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/butterWorthRBFilter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+        <state relative-caret-position="322">
+          <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/idealRBFilter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def butterWorthHighFilter(I):
+def butterWorthHighFilter(I,f_c, w):
     """
-    Gauss with high pass filter applying fourier transform
+    ButterWorth RB filter filter applying fourier transform
     :param I: image to filter
     :return: final image
     """
@@ -15,8 +15,8 @@ def butterWorthHighFilter(I):
     #Get the Fourier Transform of the image
     fourierTransform = np.fft.fftshift(np.fft.fft2(I[:,:]))
     #Asign the cut-off frequency
-    D0 = 58
-    W = 15
+    D0 = f_c
+    W = w
     #Get Euclidean Distance
     H = np.zeros([M, N])
     for u in range(M):
@@ -53,4 +53,4 @@ def butterWorthHighFilter(I):
     plt.show()
 
 I = imageio.imread("image_gauss.png")
-butterWorthHighFilter(I)
+butterWorthHighFilter(I, 58, 10)

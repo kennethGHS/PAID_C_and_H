@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def idealRBFilter(I):
+def idealRBFilter(I, f_c, w):
     """
     Ideal bandwith filter using fourier transformrs
     :param I: image to filter
@@ -15,7 +15,7 @@ def idealRBFilter(I):
     #Get the Fourier Transform of the image
     fourierTransform = np.fft.fftshift(np.fft.fft2(I[:, :]))
     #Asign the cut-off frequency
-    D0 = 10
+    D0 = f_c
     #Get Euclidean Distance
     D = np.zeros([M, N])
     for u in range(M):
@@ -24,7 +24,7 @@ def idealRBFilter(I):
             D[u, v] = np.sqrt(u ** 2 + v ** 2)
 
     H = np.ones([M, N])
-    W = 10
+    W = w
     indx = D0-W/2< D
     indy = D0+W/2 >= D
     index = np.logical_and(indx,indy)
@@ -54,5 +54,5 @@ def idealRBFilter(I):
     plt.imshow(np.uint8(np.abs(G)), cmap='gray')
     plt.show()
 
-I = imageio.imread("image.png")
-idealRBFilter(I)
+I = imageio.imread("idealRB.jpg")
+idealRBFilter(I, 58, 10)
