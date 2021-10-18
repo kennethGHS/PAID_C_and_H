@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def butterWorthFilter(I):
+def butterWorthHighFilter(I):
     """
     Gauss with high pass filter applying fourier transform
     :param I: image to filter
@@ -22,7 +22,7 @@ def butterWorthFilter(I):
         for v in range(N):
             #distance calculation
             D_temp = np.sqrt(u ** 2 + v ** 2)
-            D[u,v] = 1/(1+(D0/(1+D_temp)**(2*1)))
+            D[u,v] = 1/(1+(D0/(1+D_temp)**(2*1))) #Set order to 1
     H = D
     #Masc applied to image
     m_masc = H.shape[0]
@@ -51,4 +51,4 @@ def butterWorthFilter(I):
     plt.show()
 
 I = imageio.imread("image.jpg")
-butterWorthFilter(I)
+butterWorthHighFilter(I)

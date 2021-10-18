@@ -3,34 +3,30 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def idealRBFilter(I):
+def butterWorthHighFilter(I):
     """
-    Ideal bandwith filter using fourier transformrs
+    Gauss with high pass filter applying fourier transform
     :param I: image to filter
-    :return: filtered image
+    :return: final image
     """
     #Get the size of the image
     M = I.shape[0]
     N = I.shape[1]
     #Get the Fourier Transform of the image
-    fourierTransform = np.fft.fftshift(np.fft.fft2(I[:, :]))
+    fourierTransform = np.fft.fftshift(np.fft.fft2(I[:,:]))
     #Asign the cut-off frequency
-    D0 = 10
+    D0 = 58
+    W = 15
     #Get Euclidean Distance
-    D = np.zeros([M, N])
+    H = np.zeros([M, N])
     for u in range(M):
         for v in range(N):
-            # Calculo de distancias
-            D[u, v] = np.sqrt(u ** 2 + v ** 2)
+            # Distance procedure
+            Duv = np.sqrt(u ** 2 + v ** 2)
+            #Masc Calculus
+            H[u, v] = 1 / (1 + (Duv * W / (Duv ** 2 - D0 ** 2)) ** (2 * 1)) #Set order to 1
 
-    H = np.ones([M, N])
-    W = 10
-    indx = D0-W/2< D
-    indy = D0+W/2 >= D
-    index = np.logical_and(indx,indy)
-    H[index] = 0
-
-    #Applying the masc
+    #Masc applied to image
     m_masc = H.shape[0]
     n_masc = H.shape[1]
 
@@ -44,15 +40,17 @@ def idealRBFilter(I):
 
     G_T = fourierTransform * H
 
-    G = np.fft.ifft2(G_T)
+    G = np.fft.fftshift(G_T)
+
+    I_f = np.fft.ifft2(G)
     plt.figure()
-    # original image
+    # Original Image
     plt.subplot(1, 2, 1), plt.title("Original Image")
     plt.imshow(I, cmap='gray')
-    # final image
-    plt.subplot(1, 2, 2), plt.title("Idea RB Filter final image")
-    plt.imshow(np.uint8(np.abs(G)), cmap='gray')
+    # Output image
+    plt.subplot(1, 2, 2), plt.title("RB butterworth Filter")
+    plt.imshow(np.uint8(np.abs(I_f)), cmap='gray')
     plt.show()
 
-I = imageio.imread("image.png")
-idealRBFilter(I)
+I = imageio.imread("image_gauss.png")
+butterWorthHighFilter(I)
