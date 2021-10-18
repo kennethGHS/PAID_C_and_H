@@ -4,7 +4,10 @@ close all;
 pkg load image; 
 
   
-
+#Midpoint filter that deletes salt and peper noice from image
+#using a window of 3x3 
+#Inputs - B: image to filter
+#Output - A_t: clean image of salt and pepper noice
 function A_t=filt_punt_med(B)
 
   
@@ -12,49 +15,49 @@ function A_t=filt_punt_med(B)
   [m,n]=size(B); 
   A_t=zeros(m,n); 
 
-
+  #First corner
   Wmax=max(max(B(1:2,1:2))); 
   Wmin=min(min(B(1:2,1:2))); 
   A_t(1,1)=(Wmax+Wmin)/2;
 
-
+  #Second corner
   Wmax=max(max(B(1:2,n-1:n))); 
   Wmin=min(min(B(1:2,n-1:n))); 
   A_t(1,n)=(Wmax+Wmin)/2;
-
-
+ 
+  #Third corner
   Wmax=max(max(B(m-1:m,1:2))); 
   Wmin=min(min(B(m-1:m,1:2))); 
   A_t(m,1)=(Wmax+Wmin)/2;
 
-
+  #Fourth corner
   Wmax=max(max(B(m-1:m,n-1:n))); 
   Wmin=min(min(B(m-1:m,n-1:n))); 
   A_t(m,n)=(Wmax+Wmin)/2;
 
 
-
+  #Superior edge
   for y=2:n-1
     Wmax=max(max(B(1:2,y-1:y+1))); 
     Wmin=min(min(B(1:2,y-1:y+1))); 
     A_t(1,y)=(Wmax+Wmin)/2;
-
+  #Down edge
     Wmax=max(max(B(m-1:m,y-1:y+1)));
     Wmin=min(min(B(m-1:m,y-1:y+1))); 
     A_t(m,y)=(Wmax+Wmin)/2;
   endfor
-
+  #Right edge
   for x=2:m-1
     Wmax=max(max(B(x-1:x+1,n-1:n))); 
     Wmin=min(min(B(x-1:x+1,n-1:n))); 
     A_t(x,n)=(Wmax+Wmin)/2;
-
+  #Left edge
     Wmax=max(max(B(x-1:x+1,1:2)));
     Wmin=min(min(B(x-1:x+1,1:2))); 
     A_t(x,1)=(Wmax+Wmin)/2;
   endfor
 
-  
+  #Center
   for x=2:m-1
     for y=2:n-1
       Wmax=max(max(B(x-1:x+1,y-1:y+1))); 
