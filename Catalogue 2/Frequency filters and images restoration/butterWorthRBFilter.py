@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def butterWorthHighFilter(I,f_c, w):
+def butterWorthRBFilter(I,f_c, w):
     """
     ButterWorth RB filter filter applying fourier transform
     :param I: image to filter
@@ -53,4 +53,4 @@ def butterWorthHighFilter(I,f_c, w):
     plt.show()
 
 I = imageio.imread("image_gauss.png")
-butterWorthHighFilter(I, 58, 10)
+butterWorthRBFilter(I, 58, 10)
