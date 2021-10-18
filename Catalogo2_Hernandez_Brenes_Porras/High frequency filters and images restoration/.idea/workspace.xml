@@ -10,6 +10,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/MetodosIsaac$gaussRBFilter.coverage" NAME="gaussRBFilter Coverage Results" MODIFIED="1634524444042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/High_frequency_filters_and_images_restoration$butterworthHighFilter.coverage" NAME="butterworthHighFilter Coverage Results" MODIFIED="1634527744448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MetodosIsaac$contrArmPromFilter.coverage" NAME="contrArmPromFilter Coverage Results" MODIFIED="1634523297325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MetodosIsaac$promFilter.coverage" NAME="promFilter Coverage Results" MODIFIED="1634242079028" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MetodosIsaac$idealHighPassFilter.coverage" NAME="idealHighPassFilter Coverage Results" MODIFIED="1634153460962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -151,9 +152,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="951" />
+    <option name="width" value="978" />
     <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -194,7 +195,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.butterWorthRBFilter">
+  <component name="RunManager" selected="Python.butterworthHighFilter">
     <configuration name="butterWorthRBFilter" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MetodosIsaac" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -239,7 +240,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="contrArmPromFilter" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="butterworthHighFilter" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MetodosIsaac" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -252,7 +253,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/contrArmPromFilter.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/butterworthHighFilter.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -307,11 +308,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.butterworthHighFilter" />
         <item itemvalue="Python.butterWorthRBFilter" />
         <item itemvalue="Python.idealRBFilter" />
         <item itemvalue="Python.butterworthFilter" />
         <item itemvalue="Python.gaussRBFilter" />
-        <item itemvalue="Python.contrArmPromFilter" />
       </list>
     </recent_temporary>
   </component>
