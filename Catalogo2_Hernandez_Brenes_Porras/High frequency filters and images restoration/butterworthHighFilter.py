@@ -46,7 +46,7 @@ def butterWorthHighFilter(I):
     plt.subplot(1, 2, 1), plt.title("Imagen original")
     plt.imshow(I, cmap='gray')
     # Output image
-    plt.subplot(1, 2, 2), plt.title("Imagen transformada inversa")
+    plt.subplot(1, 2, 2), plt.title("Butterworth High Pass")
     plt.imshow(np.uint8(np.abs(I_f)), cmap='gray')
     plt.show()
 

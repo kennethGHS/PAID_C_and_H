@@ -68,7 +68,7 @@ endfunction
 
 
 
-A = imread('gaussianNoise.jpg'); 
+A = imread('hip-salt.jpg'); 
 #Original image
 subplot(1,2,1) 
 imshow(A)
