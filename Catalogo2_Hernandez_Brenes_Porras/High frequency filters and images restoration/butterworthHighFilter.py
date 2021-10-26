@@ -3,23 +3,28 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def idealHighPassFilter(I):
+def butterWorthHighFilter(I):
+    """
+    ButterWorth High filter applying fourier transform
+    :param I: image to filter
+    :return: final image
+    """
     #Get the size of the image
     M = I.shape[0]
     N = I.shape[1]
     #Get the Fourier Transform of the image
     fourierTransform = np.fft.fftshift(np.fft.fft2(I[:,:,1]))
     #Asign the cut-off frequency
-    D0 = 1
+    D0 = 10
     #Get Euclidean Distance
     D = np.zeros([M, N])
     for u in range(M):
         for v in range(N):
-            # Calculo de distancias
-            D[u, v] = np.sqrt(u ** 2 + v ** 2)
-
-    H = D > D0
-    #Realizacion de la mascara
+            #distance calculation
+            D_temp = np.sqrt(u ** 2 + v ** 2)
+            D[u,v] = 1/(1+(D0/(1+D_temp)**(2*1))) #Set order to 1
+    H = D
+    #Masc applied to image
     m_masc = H.shape[0]
     n_masc = H.shape[1]
 
@@ -35,15 +40,15 @@ def idealHighPassFilter(I):
 
     G = np.fft.fftshift(G_T)
 
-    I_f = np.fft.ifft2(G_T)
+    I_f = np.fft.ifft2(G)
     plt.figure()
-    # Imagen original
+    # Original Image
     plt.subplot(1, 2, 1), plt.title("Imagen original")
     plt.imshow(I, cmap='gray')
-    # Imagen con fft2 inversa
-    plt.subplot(1, 2, 2), plt.title("Imagen transformada inversa")
+    # Output image
+    plt.subplot(1, 2, 2), plt.title("Butterworth High Pass")
     plt.imshow(np.uint8(np.abs(I_f)), cmap='gray')
     plt.show()
 
 I = imageio.imread("image.jpg")
-idealHighPassFilter(I)
+butterWorthHighFilter(I)

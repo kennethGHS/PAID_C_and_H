@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def filter(side,B,A_t,m,n,R):
     BR1 = np.power(B, R + 1)
     BR = np.power(B, R)
-
+    #Apply filter to corners of the image
     if side == "E1":
         Wn = BR1[0, 0] + BR1[0, 1] + BR1[1, 0] + BR1[1, 1]
         Wd = BR[0, 0] + BR[0, 1] + BR[1, 0] + BR[1, 1]
@@ -22,6 +22,7 @@ def filter(side,B,A_t,m,n,R):
         Wn = BR1[m - 1, n - 1] + BR1[m - 1, n - 2] + BR1[m - 2, n - 1] + BR1[m - 2, n - 2]
         Wd = BR[m - 1, n - 1] + BR[m - 1, n - 2] + BR[m - 2, n - 1] + BR[m - 2, n - 2]
         A_t[m - 1, n - 1] = Wn / Wd
+    #Apply filter to edges
     elif side == "BU":
         for y in range(1, n - 1):
 
@@ -74,6 +75,7 @@ def filter(side,B,A_t,m,n,R):
             Wdc2 = BR[x - 1, 1] + BR[x, 1] + BR[x + 1, 1]
             Wd = Wdc1 + Wdc2
             A_t[x, 0] = Wn / Wd
+    #Apply to center
     elif side == "C":
         for x in range(1, m - 1):
             for y in range(1, n - 1):
@@ -89,8 +91,12 @@ def filter(side,B,A_t,m,n,R):
                 Wd = Wdf1 + Wdf2 + Wdf3
 
                 A_t[x, y] = Wn / Wd
-def promGeoFilter(B):
-
+def contrMeanFilter(B):
+    """
+    Apply contr armonic filter
+    :param B: image to reconstruct
+    :return: reconstructed image
+    """
     R = 1
     (m, n) = B.shape
     A_t = np.zeros((m, n))
@@ -108,7 +114,7 @@ def promGeoFilter(B):
     filter("BL", B, A_t, m, n,R)
 
     filter("C", B, A_t, m, n,R)
-
+    #Apply unint8 to image
     imgDT = np.iinfo(np.uint8)
     imax = A_t * imgDT.max
     imax[imax > imgDT.max] = imgDT.max
@@ -123,7 +129,7 @@ I = im.imread("filename.jpg")
 info = np.iinfo(I.dtype)
 I = I.astype(np.float64) / info.max
 
-
+#Convert image to uint8
 imgDT = np.iinfo(np.uint8)
 imax = I * imgDT.max
 imax[imax > imgDT.max] = imgDT.max
@@ -131,7 +137,7 @@ imax[imax < imgDT.min] = imgDT.min
 A = imax.astype(np.uint8)
 
 
-
+#Original image
 plt.figure(1)
 plt.subplot(121)
 plt.title("Imagen con ruido")
@@ -139,8 +145,9 @@ plt.imshow(A, cmap='gray', vmin = 0, vmax = 255, interpolation='none')
 
 
 
-B = promGeoFilter(I)
+B = contrMeanFilter(I)
 
+#Final image
 plt.subplot(122)
 plt.title("Imagen Filtrada Promedio")
 plt.imshow(B, cmap='gray', vmin = 0, vmax = 255, interpolation='none')

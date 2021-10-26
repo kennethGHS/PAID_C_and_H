@@ -16,12 +16,12 @@ def gaussRBFilter(I):
     D = np.zeros([M, N])
     for u in range(M):
         for v in range(N):
-            # Calculo de distancias
+            # Distance compute
             D_temp = np.sqrt(u ** 2 + v ** 2)
             D[u, v] = 1-np.exp(-(1/2)*((D_temp**2-D0**2)/(D_temp*W))**2)
 
     H = D
-    #Realizacion de la mascara
+    #Masc calculus
     m_masc = H.shape[0]
     n_masc = H.shape[1]
 
@@ -39,10 +39,10 @@ def gaussRBFilter(I):
 
     I_f = np.fft.ifft2(G)
     plt.figure()
-    # Imagen original
+    # Original image
     plt.subplot(1, 2, 1), plt.title("Imagen original")
     plt.imshow(I, cmap='gray')
-    # Imagen con fft2 inversa
+    # Final image
     plt.subplot(1, 2, 2), plt.title("Imagen con filtro RB de Gauss")
     plt.imshow(np.uint8(np.abs(I_f)), cmap='gray')
     plt.show()

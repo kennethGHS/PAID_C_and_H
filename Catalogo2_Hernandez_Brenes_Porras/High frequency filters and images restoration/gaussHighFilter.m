@@ -3,16 +3,20 @@ clc;
 clear;
 close all;
 pkg load image
+#High pass filter using gauss
+#Inputs - A: An image to filter
+#Outputs - A_f: final image that applied a filter to A 
 
 A=imread('image.jpg');
 
 A_o = im2double(A);
-
+#Get the fourier transform
 A = fftshift(fft2(A_o));
-
+#Get the size
 [m,n]=size(A);
 fc=1;
 H=zeros(m,n);
+#Masc applied to image
 for u=1:m
   for v=1:n
     
@@ -22,7 +26,7 @@ for u=1:m
   endfor
 endfor 
  
-
+#Complete the masc of the filter
 for x=1:round(m/2)
   for y=1:round(n/2)
     
@@ -39,14 +43,12 @@ G=fftshift(G);
 
 A_f=ifft2(G);
 
-
+#Original Image
 subplot(2,1,1)
 imshow(A_o)
 title('Imagen Original')
-
-
-
+#Final image
 A_f=im2uint8(real(A_f));
 subplot(2,1,2)
 imshow(A_f)
-title('Imagen recontruida')
+title('Imagen con el filtro de gauss paso alto')

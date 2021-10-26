@@ -3,9 +3,9 @@ clear;
 close all;
 pkg load image;
  
-
-
-
+#Filter for the armonic mean filter that uses a window of 3x3
+#Inputs - B: An image with noice
+#Outputs - A_t: An image withouth noice
 function A_t = filt_prom_arm(B)
 
   B = double(B);
@@ -68,14 +68,14 @@ endfunction
 
 
 
-A = imread('gaussianNoise.jpg'); 
-
+A = imread('hip-salt.jpg'); 
+#Original image
 subplot(1,2,1) 
 imshow(A)
 title('Original Image')
   
 A_t = filt_prom_arm(A);
-  
+#Final image
 subplot(1,2,2)
 imshow(A_t)
 title('Mean Armonic Filter')

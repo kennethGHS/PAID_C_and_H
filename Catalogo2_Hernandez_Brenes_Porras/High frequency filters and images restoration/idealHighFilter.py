@@ -3,29 +3,28 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def idealRBFilter(I):
-    #Get the size of the image
+def idealHighPassFilter(I):
+    """
+    High pass filter using the fourier transform
+    :param I: Image to filter
+    :return: Plot of two images (original and filtered)
+    """
+    # Get the size of the image
     M = I.shape[0]
     N = I.shape[1]
-    #Get the Fourier Transform of the image
-    fourierTransform = np.fft.fftshift(np.fft.fft2(I[:, :]))
-    #Asign the cut-off frequency
-    D0 = 10
-    #Get Euclidean Distance
+    # Get the Fourier Transform of the image
+    fourierTransform = np.fft.fftshift(np.fft.fft2(I[:,:,1]))
+    # Asign the cut-off frequency
+    D0 = 1
+    # Get Euclidean Distance
     D = np.zeros([M, N])
     for u in range(M):
         for v in range(N):
-            # Calculo de distancias
+            # distance calculation
             D[u, v] = np.sqrt(u ** 2 + v ** 2)
 
-    H = np.ones([M, N])
-    W = 10
-    indx = D0-W/2< D
-    indy = D0+W/2 >= D
-    index = np.logical_and(indx,indy)
-    H[index] = 0
-
-    #Realizacion de la mascara
+    H = D > D0
+    # Masc applied to image
     m_masc = H.shape[0]
     n_masc = H.shape[1]
 
@@ -39,15 +38,17 @@ def idealRBFilter(I):
 
     G_T = fourierTransform * H
 
-    G = np.fft.ifft2(G_T)
+    G = np.fft.fftshift(G_T)
+
+    I_f = np.fft.ifft2(G_T)
     plt.figure()
-    # Imagen original
+    # Original Image
     plt.subplot(1, 2, 1), plt.title("Imagen original")
     plt.imshow(I, cmap='gray')
-    # Imagen con fft2 inversa
+    # Output image
     plt.subplot(1, 2, 2), plt.title("Imagen transformada inversa")
-    plt.imshow(np.uint8(np.abs(G)), cmap='gray')
+    plt.imshow(np.uint8(np.abs(I_f)), cmap='gray')
     plt.show()
 
-I = imageio.imread("image.png")
+I = imageio.imread("image.jpg")
 idealHighPassFilter(I)
