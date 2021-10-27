@@ -1,13 +1,16 @@
 function I = fast_median_filter_aprox_v2(I)
-  I = ((I!=0) & (I!=255)).*I; 
+  %Función encargada de realizar el filtro rapido aproximado de la mediana.
+  %Entradas: Imagen a filtrar.
+  %Salidas: Imagen filtrada.
+  I = ((I!=0) & (I!=255)).*I;  %Ponemos todos los pixeles con ruido en 0
   
-  [x_pos,y_pos] = find((I==0)|(I==255));
+  [x_pos,y_pos] = find((I==0)|(I==255)); %Encontramos las posiciones de todos los pixeles con ruido
   
   dirtyPositionsSize =  size(x_pos)(1);
-  I_p = padarray(I, [2, 2], 0, 'both');
+  I_p = padarray(I, [2, 2], 0, 'both'); %Le ponemos un borde de 2 pixeles al rededor de la imagen.
   
-  x_pos .+= 2;
-  y_pos .+= 2;
+  x_pos .+= 2; %Aumentamos las posiciones en dos por el paso realizado anteriormente.
+  y_pos .+= 2; %Aumentamos las posiciones en dos por el paso realizado anteriormente.
   
   for i = 1: dirtyPositionsSize
         x = x_pos(i);
@@ -22,10 +25,3 @@ function I = fast_median_filter_aprox_v2(I)
   endfor
 endfunction
 
-%I =  imread('./Images/SP_barbara.jpg');
-
-
-
-%I_c = fast_median_filter_aprox_v2(I);
-
-%imwrite (I_c, './Images/filterd_SP_barbara.jpg')
