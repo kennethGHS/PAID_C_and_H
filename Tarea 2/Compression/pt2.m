@@ -1,5 +1,9 @@
  function pt2
-   
+   %error = calculate_error_image(imread("elena.jpg"),imread("Result45.jpg"))
+   %error = calculate_error_image(imread("elena.jpg"),imread("Result35.jpg"))
+   %error = calculate_error_image(imread("elena.jpg"),imread("Result40.jpg"))
+   %error = calculate_error_image(imread("elena.jpg"),imread("Result60.jpg"))
+   %error = calculate_error_image(imread("elena.jpg"),imread("Result70.jpg"))
    W = [0.151,0.554,0.989];
   [ZerosCD,ZerosImag,ZerosReal,CompressedImaginary,CompressedReal,CompressedCD,PossibleValuesReal,PossibleValuesImag] = compress_image("elena.jpg", 45,W);
   m = escale((CompressedReal),255)
@@ -23,6 +27,23 @@
    imwrite(uint8(floor(Image)),"Result70.jpg");
    
   endfunction
+  
+function MSE = calculate_error_image(M,W)
+  %Calculates the MSE between two pictures M and W
+    [n,m] = size(M);
+    M = double(M);
+    W = double(W);
+    sum = 0.0;
+    for i = 1:n
+      for j = 1:m
+        sum = sum + abs((M(i,j)-W(i,j)))^2;
+        if (M(i,j)-W(i,j)) != 0
+          l = abs((M(i,j)-W(i,j)))^2;
+        endif
+      endfor
+    endfor
+    MSE = sum/(n*m);
+endfunction
 
 function [Image] = reverse_compression(ZerosCD,ZerosImag,ZerosReal,CompressedImaginary,CompressedReal,CompressedCD,PossibleValuesReal,PossibleValuesImag,W,m,n,T)
     %Reverse the compression of an image, it return a matrix with the imaginary values
