@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import imageio
-# from scipy import signal
+import cv2
 import numpy as np
 
 
@@ -14,7 +14,7 @@ def umbralUtsu2(A):
     m = len(A)
     n = len(A[0])
     # Paso 0: Calculamos el hisotgrama
-    q, _ = np.histogram(A, bins=255, range=(0, 255))
+    q = cv2.calcHist([A], [0], None, [256], [0, 256])
     # Paso 1: Calculamos el histograma normalizado
     h = (1 / (m * n)) * q
 
@@ -85,14 +85,14 @@ def umbralUtsu2(A):
     D[A < T1] = 0 #Tercer tono de gris
     return D.astype(np.uint8)
 
-
-A = imageio.imread("imagen6.jpg")
+A = cv2.imread('imagen4.jpg', cv2.IMREAD_GRAYSCALE)
+A_p = imageio.imread("imagen4.jpg")
 B = umbralUtsu2(A)
 
 plt.figure()
 plt.subplot(121)
 plt.title("Imagen original")
-plt.imshow(A)
+plt.imshow(A_p)
 plt.subplot(122)
 plt.title("2 Umbral de Otsu")
 plt.imshow(B, cmap="gray")
