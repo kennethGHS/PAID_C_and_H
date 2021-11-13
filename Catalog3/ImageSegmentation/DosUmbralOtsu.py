@@ -5,6 +5,11 @@ import numpy as np
 
 
 def umbralUtsu2(A):
+    '''
+    Funcion que realiza dos cortes de una imagen para poder segmentarla en tres tonos de gris
+    :param A: imagen a procesar
+    :return: imagen procesada con 3 tonos
+    '''
 
     m = len(A)
     n = len(A[0])
@@ -32,7 +37,7 @@ def umbralUtsu2(A):
     # Paso 4: Calculamos el maximo de mc
     mg = mc[-1] #Extraemos el ultimo elemento por ser el una suma acumulada
     # Paso 5: Calcular el vector de varianza entre clases
-    delta2b = np.zeros(255)
+    delta2b = np.zeros((255,255))
     for k1 in range(0, 255): #Definimos los limites sobre los cuales van a iterar k1
         for k2 in range(0, 255): #Definimos los limites sobre los cuales van a iterar k2
             if k1 < k2:

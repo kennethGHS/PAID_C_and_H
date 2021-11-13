@@ -5,7 +5,11 @@ import numpy as np
 
 
 def umbralUtsu1(A):
-
+    '''
+        Funcion que realiza un corte de una imagen para poder segmentarla en dos tonos de gris
+        :param A: imagen a procesar
+        :return: imagen procesada con 3 tonos
+        '''
     m = len(A)
     n = len(A[0])
     # Paso 0: Calculamos el hisotgrama
