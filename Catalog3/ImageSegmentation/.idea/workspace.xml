@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a205303c-86f9-44e8-a375-0a3f32b04c2e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/DosUmbralOtsu.py" beforeDir="false" afterPath="$PROJECT_DIR$/DosUmbralOtsu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../H3/P3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../H3/P3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../H3/P3/parte3_p2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../H3/P3/parte3_p2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -202,12 +204,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1636781102055</updated>
-      <workItem from="1636781103954" duration="9314000" />
+      <workItem from="1636781103954" duration="9881000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9314000" />
+    <option name="totallyTimeSpent" value="9881000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="7" />
