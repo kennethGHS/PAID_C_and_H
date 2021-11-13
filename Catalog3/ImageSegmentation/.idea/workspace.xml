@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a205303c-86f9-44e8-a375-0a3f32b04c2e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../H3/P3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../H3/P3/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../H3/P3/parte3_p2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../H3/P3/parte3_p2.py" afterDir="false" />
     </list>
@@ -77,10 +76,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="951" />
-    <option name="y" value="-9" />
-    <option name="width" value="978" />
-    <option name="height" value="1098" />
+    <option name="x" value="950" />
+    <option name="y" value="-10" />
+    <option name="width" value="979" />
+    <option name="height" value="1099" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -204,12 +203,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1636781102055</updated>
-      <workItem from="1636781103954" duration="9881000" />
+      <workItem from="1636781103954" duration="9882000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9881000" />
+    <option name="totallyTimeSpent" value="9882000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="7" />
