@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9745883-f640-4921-ad0d-6c157841a8a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Catalog3/ImageSegmentation/openCVOtsu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Catalog3/ImageSegmentation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Catalog3/ImageSegmentation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Catalog3/ImageSegmentation/UnUmbralOtsu.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Catalog3/ImageSegmentation/UnUmbralOtsu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Catalog3/ImageSegmentation/DosUmbralOtsu.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Catalog3/ImageSegmentation/DosUmbralOtsu.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -145,6 +142,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="761" y="-7" width="782" height="878" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24930748" />
