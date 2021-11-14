@@ -1,9 +1,8 @@
 function P2
   
 c =imread("C:/Users/kenne/OneDrive/Desktop/Pag.png");
- value = transform2(c);
- imshow(untransform2(value));
-     cosa = calculate_eme(value,4)
+ value = transform3(c);
+ imshow(untransform4(transform4(c)))
  %p = apply_upgrade(0.97,c);
  %imwrite(p,"test.png")
   endfunction
@@ -200,3 +199,108 @@ function image = untransform2(M)
    image = reform_RGB(R,G,B);
 endfunction
 
+function M = transform3(image)
+  [R,G,B,I] = get_RGBI(image);
+  [m,n,rgb] = size(image);
+  M =0.0*(zeros(m*4,n));
+  [m_new,n_new] = size(M);
+  row_old = 1;
+  index_old = 1;
+  row_new = 1;
+  index_new = 1;
+  while row_old <= m
+    while index_old <= n
+      M(row_new:row_new + 3, index_old:index_old)= [ I(row_old,index_old ) R(row_old,index_old) G(row_old,index_old) B(row_old,index_old)];
+      index_old = index_old + 1;
+      index_new = index_new + 1;
+    endwhile
+    index_old = 1;
+    index_new = 1;
+    row_new = row_new + 4;
+    row_old = row_old +1;
+  endwhile
+  M = uint8(M);
+endfunction
+
+
+function image = untransform3(M)
+  [m_new,n_new] = size(M);
+  R = zeros(m_new/4,n_new);
+  G = R;
+  B = R;
+  I = R;
+  [m,n,rgb] = size(R);
+  row_old = 1;
+  index_old = 1;
+  row_new = 1;
+  index_new = 1;
+  while row_old <= m
+    while index_old <= n
+      value = M(row_new:row_new + 3, index_old:index_old);
+      I(row_old,index_old) = value(1);
+      R(row_old,index_old) = value(2);
+      G(row_old,index_old) = value(3);
+      B(row_old,index_old) = value(4);
+      index_old = index_old + 1;
+      index_new = index_new + 1;
+    endwhile
+    index_old = 1;
+    index_new = 1;
+    row_new = row_new + 4;
+    row_old = row_old +1;
+  endwhile
+  image = reform_RGB(R,G,B);
+endfunction
+
+function M = transform4(image)
+  [R,G,B,I] = get_RGBI(image);
+  [m,n,rgb] = size(image);
+  M =0.0*(zeros(m,n*4));
+  [m_new,n_new] = size(M);
+  row_old = 1;
+  index_old = 1;
+  row_new = 1;
+  index_new = 1;
+  while row_old <= m
+    while index_old <= n
+      M(row_new:row_new , index_new:index_new + 3)= [ I(row_old,index_old ) ;R(row_old,index_old); G(row_old,index_old); B(row_old,index_old)];
+      index_old = index_old + 1;
+      index_new = index_new + 4;
+    endwhile
+    index_old = 1;
+    index_new = 1;
+    row_new = row_new+1;
+    row_old = row_old +1;
+  endwhile
+  M = uint8(M);
+endfunction
+
+
+function image = untransform4(M)
+  [m_new,n_new] = size(M);
+  R = zeros(m_new,n_new/4);
+  G = R;
+  B = R;
+  I = R;
+  [m,n,rgb] = size(R);
+  row_old = 1;
+  index_old = 1;
+  row_new = 1;
+  index_new = 1;
+  while row_old <= m
+    while index_old <= n
+      value = M(row_new:row_new , index_new:index_new + 3);
+      I(row_old,index_old) = value(1);
+      R(row_old,index_old) = value(2);
+      G(row_old,index_old) = value(3);
+      B(row_old,index_old) = value(4);
+      index_old = index_old + 1;
+      index_new = index_new + 4;
+    endwhile
+    index_old = 1;
+    index_new = 1;
+    row_new = row_new+1;
+    row_old = row_old +1;
+  endwhile
+  image = reform_RGB(R,G,B);
+endfunction
