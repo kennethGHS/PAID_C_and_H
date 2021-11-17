@@ -56,7 +56,7 @@ def umbralUtsu2(A):
                 for i in range(k1, k2):
                     m2 = m2 + (i - 1) * h[i]
 
-                for i in range(k2, k):
+                for i in range(k2, 255):
                     m3 = m3 + (i - 1) * h[i]
 
                 #Paso 8: Calcular
