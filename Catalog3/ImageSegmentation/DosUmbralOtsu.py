@@ -83,17 +83,17 @@ def umbralUtsu2(A):
     operation = np.logical_and(cond1,cond2)
     D[operation] = 255 // 2 #Segundo tono de gris
     D[A < T1] = 0 #Tercer tono de gris
-    return D.astype(np.uint8)
+    return D.astype(np.uint8),T1,T2
 
 A = cv2.imread('imagen4.jpg', cv2.IMREAD_GRAYSCALE)
 A_p = imageio.imread("imagen4.jpg")
-B = umbralUtsu2(A)
+B,T1,T2 = umbralUtsu2(A)
 
 plt.figure()
 plt.subplot(121)
 plt.title("Imagen original")
 plt.imshow(A_p)
 plt.subplot(122)
-plt.title("2 Umbral de Otsu")
+plt.title("2 Umbral de Otsu(T1= "+str(T1)+", T2= "+str(T2)+")")
 plt.imshow(B, cmap="gray")
 plt.show()
