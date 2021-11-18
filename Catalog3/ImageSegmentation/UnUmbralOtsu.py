@@ -56,17 +56,17 @@ def umbralUtsu1(A):
     D = np.zeros((m, n, 3))
     D[A > T] = 255
     D[A <= T] = 0
-    return D.astype(np.uint8)
+    return D.astype(np.uint8),T
 
 A = cv2.imread('imagen4.jpg', cv2.IMREAD_GRAYSCALE)
 A_p = imageio.imread("imagen4.jpg")
-B = umbralUtsu1(A)
+B,T = umbralUtsu1(A)
 
 plt.figure()
 plt.subplot(121)
 plt.title("Imagen original")
 plt.imshow(A_p)
 plt.subplot(122)
-plt.title("1 Umbral de Otsu")
+plt.title("1 Umbral de Otsu, T ="+str(T))
 plt.imshow(B, cmap="gray")
 plt.show()
